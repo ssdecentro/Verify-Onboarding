@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HDFC Securities Onboarding + Account Verification Demo</title>
+<title>Digital Onboarding + Account Verification Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: presenter shell — journey controls | live device | developer console.
    Design language: Decentro-Demo.MD. Surface A (zinc) around the frame,
@@ -719,13 +719,13 @@ body.devmode .tab{padding:7px 8px 8px}
 </head>
 <body>
 <!-- ============================================================
-  @dev  HDFC Securities · Mobile-first demat onboarding — interactive prototype
+  @dev  Digital onboarding + account verification — interactive prototype (client-neutral)
   Built per Decentro-Demo.MD v1.1. Surfaces: A (presenter shell, zinc) + D (mobile, partner-themed).
   Journey: Mobile+OTP → Customer Data Pull prefill (PAN/DOB/Name) → Detailed PAN
            → Validation + Aadhaar seeding gate → DigiLocker (mobile OTP) documents + OCR name match → Onboarded.
   ALL DATA IS MOCK. Times pinned to Asia/Kolkata. Endpoints badged ILLUSTRATIVE are not confirmed
   against the Decentro API reference and must be checked before this goes to engineering.
-  Partner branding is a demo theme for an HDFC Securities conversation, not supplied brand artwork.
+  Every brand in the theming switcher is invented. No prospect's brand appears in this build.
 ============================================================= -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="decentro-logo" viewBox="112 112 2526 314">
@@ -747,7 +747,7 @@ body.devmode .tab{padding:7px 8px 8px}
     <div class="brand">
       <svg class="logo" viewBox="0 0 2526 314" width="92" height="18" role="img" aria-label="Decentro" style="color:var(--fg)"><use href="#decentro-logo"/></svg>
       <span class="sep"></span>
-      <b>Onboarding for HDFC Securities</b>
+      <b>Digital onboarding + account verification</b>
       <span class="tag">Data Pull · PAN · KRA · DigiLocker · Account verification</span>
       <span class="proto">Prototype · mock data</span>
     </div>
@@ -885,7 +885,7 @@ body.devmode .tab{padding:7px 8px 8px}
 
 <script>
 /* ============================================================
-   HDFC Securities · mobile-first demat onboarding
+   Digital onboarding + account verification · client-neutral build
    CONFIG → STATE → MOCK SERVER → FLOWS → RENDER → DEV CONSOLE → RESPONSIVE → TEST HOOK
    ============================================================ */
 const $ = s => document.querySelector(s);
@@ -920,30 +920,30 @@ const IC = {
 const svg = (k, px) => '<svg viewBox="0 0 24 24" width="' + (px || 18) + '" height="' + (px || 18) + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>';
 
 /* ---------- partner brand themes (Section 7.15) ----------
-   HDFC palette per Decentro-Demo.MD §7.14 bank palette: HDFC #004C8F / #002D5A.
+   Invented brands only — enough palette range to show white-labelling without naming a prospect.
    These are demo themes for a client conversation, not supplied brand artwork —
    engineering drops the real theme JSON in at integration. */
 const PRESETS = {
-  hdfc:{ name:'HDFC Securities', partner:'HDFC Securities', unit:'DEMAT & TRADING', mono:'H', font:"'Inter',sans-serif", fontRes:'R.font.inter', header:'Open your account',
-    light:{primary:'#004C8F',on_primary:'#FFFFFF',background:'#FFFFFF',surface:'#F1F6FB',text_primary:'#0E1621',text_secondary:'#5B6B7C',border:'#DCE6F0',success:'#167A4D',warning:'#A35B00',error:'#C2362C'},
-    dark:{primary:'#5EA6E8',on_primary:'#04192E',background:'#0A0F16',surface:'#141B24',text_primary:'#EEF3F8',text_secondary:'#93A4B5',border:'#23303D',success:'#4CC38A',warning:'#E3A33B',error:'#F0706A'},
-    btnR:6, btnH:50, inR:6, cardR:10, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'OUTLINED',
-    host:{ eyebrow:'Demat & trading account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
-  hdfcdark:{ name:'HDFC \u00b7 dark', partner:'HDFC Securities', unit:'DEMAT & TRADING', mono:'H', font:"'Inter',sans-serif", fontRes:'R.font.inter', header:'Open your account', darkDefault:true,
-    light:{primary:'#004C8F',on_primary:'#FFFFFF',background:'#FFFFFF',surface:'#F1F6FB',text_primary:'#0E1621',text_secondary:'#5B6B7C',border:'#DCE6F0',success:'#167A4D',warning:'#A35B00',error:'#C2362C'},
-    dark:{primary:'#5EA6E8',on_primary:'#04192E',background:'#0A0F16',surface:'#141B24',text_primary:'#EEF3F8',text_secondary:'#93A4B5',border:'#23303D',success:'#4CC38A',warning:'#E3A33B',error:'#F0706A'},
-    btnR:6, btnH:50, inR:6, cardR:10, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'OUTLINED',
-    host:{ eyebrow:'Demat & trading account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
   decentro:{ name:'Decentro default', partner:'Your app', unit:'ONBOARDING', mono:'Y', font:"'Inter',sans-serif", fontRes:'R.font.inter', header:'Open your account',
     light:{primary:'#09090B',on_primary:'#FAFAFA',background:'#FFFFFF',surface:'#F4F4F5',text_primary:'#09090B',text_secondary:'#71717A',border:'#E4E4E7',success:'#16A34A',warning:'#D97706',error:'#DC2626'},
     dark:{primary:'#FAFAFA',on_primary:'#09090B',background:'#09090B',surface:'#18181B',text_primary:'#FAFAFA',text_secondary:'#A1A1AA',border:'#27272A',success:'#4ADE80',warning:'#FBBF24',error:'#F87171'},
     btnR:10, btnH:48, inR:10, cardR:12, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'OUTLINED',
-    host:{ eyebrow:'Investment account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
-  broker:{ name:'Neutral broker', partner:'Northline Invest', unit:'BROKING', mono:'N', font:"'DM Sans',sans-serif", fontRes:'R.font.dm_sans', header:'Open your account',
+    host:{ eyebrow:'Demat & trading account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
+  northline:{ name:'Northline Invest', partner:'Northline Invest', unit:'BROKING', mono:'N', font:"'DM Sans',sans-serif", fontRes:'R.font.dm_sans', header:'Open your account',
     light:{primary:'#12507E',on_primary:'#FFFFFF',background:'#FFFFFF',surface:'#EFF4F9',text_primary:'#0F1821',text_secondary:'#566675',border:'#DCE5EE',success:'#13804B',warning:'#A86400',error:'#C93A2E'},
     dark:{primary:'#5FA8E0',on_primary:'#04192B',background:'#0A1118',surface:'#131C25',text_primary:'#E8F0F7',text_secondary:'#94A6B5',border:'#22303C',success:'#4CC38A',warning:'#E3A33B',error:'#F0706A'},
     btnR:14, btnH:52, inR:14, cardR:16, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'FILLED',
-    host:{ eyebrow:'Demat & trading account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } }
+    host:{ eyebrow:'Demat & trading account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
+  meridian:{ name:'Meridian Capital', partner:'Meridian Capital', unit:'WEALTH', mono:'M', font:"'Inter',sans-serif", fontRes:'R.font.inter', header:'Open your account',
+    light:{primary:'#0E7C66',on_primary:'#FFFFFF',background:'#FFFFFF',surface:'#EFF5F2',text_primary:'#0F1D19',text_secondary:'#56665F',border:'#D5E2DC',success:'#13804B',warning:'#A86400',error:'#C93A2E'},
+    dark:{primary:'#3CC2A0',on_primary:'#04201A',background:'#0C1513',surface:'#14201D',text_primary:'#E6F1ED',text_secondary:'#93A8A0',border:'#24332F',success:'#4CC38A',warning:'#E3A33B',error:'#F0706A'},
+    btnR:8, btnH:50, inR:8, cardR:12, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'OUTLINED',
+    host:{ eyebrow:'Wealth account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } },
+  vantage:{ name:'Vantage One', partner:'Vantage One', unit:'INVESTING', mono:'V', font:"'Manrope',sans-serif", fontRes:'R.font.manrope', header:'Open your account', darkDefault:true,
+    light:{primary:'#5B46C9',on_primary:'#FFFFFF',background:'#FFFFFF',surface:'#F3F1FB',text_primary:'#151226',text_secondary:'#605C73',border:'#E1DCF0',success:'#178A4C',warning:'#A86400',error:'#CC3A3A'},
+    dark:{primary:'#A98BFF',on_primary:'#160B33',background:'#110E18',surface:'#1B1726',text_primary:'#EEEAF7',text_secondary:'#A39CB6',border:'#2E2840',success:'#4CC38A',warning:'#E3A33B',error:'#F0706A'},
+    btnR:999, btnH:52, inR:14, cardR:20, btnStyle:'FILLED', btnCase:'SENTENCE', inStyle:'OUTLINED',
+    host:{ eyebrow:'Investment account', title:'Open your account in under 3 minutes', body:'Aadhaar-backed KYC, fully digital. No paperwork, no branch visit.', cta:'Open my account' } }
 };
 
 /* ---------- persona (Decentro-Demo.MD §8.6 — reuse, do not invent) ---------- */
@@ -962,15 +962,15 @@ const P = {
   panUpdated:'09 Feb 2024',
   bankName:'HDFC Bank', bankAcct:'50100234567890', bankIfsc:'HDFC0000123', bankBranch:'Koramangala, Bengaluru',
   vpa:'rajesh@okhdfcbank', bankNameOnAcct:'RAJESH KUMAR SHARMA',
-  clientId:'HSL1048827', dpId:'IN300476', boId:'10488270',
-  base:'HSEC240118'
+  clientId:'CLT1048827', dpId:'IN300476', boId:'10488270',
+  base:'DCNTR240118'
 };
 const fmtMobile = m => '+91 ' + m.slice(0,5) + ' ' + m.slice(5);
 const maskMobile = m => '+91 ' + m.slice(0,2) + 'XXX XX' + m.slice(-3);
 
 /* ---------- journeys ---------- */
 const JOURNEYS = {
-  hdfc:{ name:'HDFC plan \u00b7 nothing to reconfirm', p:'P0', steps:5, today:12,
+  lean:{ name:'Nothing to reconfirm', p:'P0', steps:5, today:12,
     d:'Mobile + OTP, email + OTP, then the DigiLocker page and a one-tap bank account check. PAN is pulled, validated and enriched in the background and never put in front of the customer.' },
   confirm:{ name:'With a confirmation screen', p:'Compare', steps:7, today:12,
     d:'The same checks, but the customer is shown the PAN, DOB and name that were just fetched and asked to confirm them. Two more screens, and three fields they can get wrong.' }
@@ -979,7 +979,7 @@ const JOURNEYS = {
 /* ---------- outcomes ---------- */
 const OUT = [
   { id:'clean',      t:'No KRA record \u00b7 DigiLocker',  p:'P0',  tone:'ok',
-    n:'The path HDFC Securities will see most often. Everything resolves in the background, KRA has no record, so the customer lands on the DigiLocker page straight after the email OTP.' },
+    n:'The path most brokers will see most often. Everything resolves in the background, KRA has no record, so the customer lands on the DigiLocker page straight after the email OTP.' },
   { id:'krafound',   t:'Already KYC-registered',           p:'P0',  tone:'ok',
     n:'KRA returns an existing record, so document collection is skipped entirely. The customer never sees DigiLocker \u2014 three screens from start to signed.' },
   { id:'pullmiss',   t:'Data Pull finds nothing',          p:'Fallback', tone:'wn',
@@ -1006,14 +1006,14 @@ const OUT = [
 const outById = id => OUT.find(o => o.id === id) || OUT[0];
 
 /* ---------- API catalogue. ownership drives the badge in the console ---------- */
-const HOSTS = { DECENTRO:'in.decentro.tech', DECFIN:'api.decentro.tech', HDFC:'api.hdfcsec.example', GOV:'api.digitallocker.gov.in' };
-const OWN = { decentro:'Decentro', hdfc:'HDFC Securities', gov:'Government (UIDAI \u00b7 ITD \u00b7 MeitY)', customer:'Customer' };
+const HOSTS = { DECENTRO:'in.decentro.tech', DECFIN:'api.decentro.tech', PARTNER:'api.partner.example', GOV:'api.digitallocker.gov.in' };
+const OWN = { decentro:'Decentro', partner:'Partner (your backend)', gov:'Government (UIDAI \u00b7 ITD \u00b7 MeitY)', customer:'Customer' };
 /* bg:true marks a call the customer never sees a screen for */
 const API = {
-  otpGen:  { step:1, m:'POST', set:'HDFC',     own:'hdfc',     path:'/v1/auth/otp/generate',                    ill:true,  label:'Send mobile OTP' },
-  otpVal:  { step:1, m:'POST', set:'HDFC',     own:'hdfc',     path:'/v1/auth/otp/validate',                    ill:true,  label:'Validate mobile OTP' },
-  emGen:   { step:2, m:'POST', set:'HDFC',     own:'hdfc',     path:'/v1/auth/email/otp/generate',              ill:true,  label:'Send email OTP' },
-  emVal:   { step:2, m:'POST', set:'HDFC',     own:'hdfc',     path:'/v1/auth/email/otp/validate',              ill:true,  label:'Validate email OTP' },
+  otpGen:  { step:1, m:'POST', set:'PARTNER',  own:'partner',     path:'/v1/auth/otp/generate',                    ill:true,  label:'Send mobile OTP' },
+  otpVal:  { step:1, m:'POST', set:'PARTNER',  own:'partner',     path:'/v1/auth/otp/validate',                    ill:true,  label:'Validate mobile OTP' },
+  emGen:   { step:2, m:'POST', set:'PARTNER',  own:'partner',     path:'/v1/auth/email/otp/generate',              ill:true,  label:'Send email OTP' },
+  emVal:   { step:2, m:'POST', set:'PARTNER',  own:'partner',     path:'/v1/auth/email/otp/validate',              ill:true,  label:'Validate email OTP' },
   pull:    { step:3, m:'POST', set:'DECENTRO', own:'decentro', path:'/v2/financial_services/customer/data_pull', ill:false, bg:true, label:'Customer Data Pull' },
   panVal:  { step:3, m:'POST', set:'DECENTRO', own:'decentro', path:'/v3/kyc/pan',                              ill:false, bg:true, label:'PAN validation \u00b7 NSDL' },
   panDet:  { step:3, m:'POST', set:'DECENTRO', own:'decentro', path:'/v3/kyc/pan/detailed',                     ill:true,  bg:true, label:'Detailed PAN' },
@@ -1027,7 +1027,7 @@ const API = {
   rpdInt:  { step:4, m:'POST', set:'DECFIN',   own:'decentro', path:'/v3/payments/rpd/intent',                  ill:false, label:'Reverse Penny Drop \u00b7 intent' },
   rpdStat: { step:4, m:'GET',  set:'DECFIN',   own:'decentro', path:'/v3/payments/transaction/status',          ill:false, label:'Reverse Penny Drop \u00b7 status' },
   vbaVal:  { step:4, m:'POST', set:'DECENTRO', own:'decentro', path:'/v3/banking/money_transfer/validate_bank_account', ill:false, label:'Bank account validation' },
-  open:    { step:5, m:'POST', set:'HDFC',     own:'hdfc',     path:'/v1/onboarding/accounts',                  ill:true,  label:'Open demat account' }
+  open:    { step:5, m:'POST', set:'PARTNER',  own:'partner',     path:'/v1/onboarding/accounts',                  ill:true,  label:'Open demat account' }
 };
 
 /* ---------- the background chain, in order. This is screen 2. ---------- */
@@ -1048,7 +1048,7 @@ const STEPS = [
 ];
 const stepOf = id => (STEPS.find(s => s.ids.includes(id)) || STEPS[0]).n;
 const SCREENS = {
-  host:        { t:'App home',                     g:'Entry',    tone:'',    c:'Card + Button',             purpose:'The partner app before the journey starts. Owned by HDFC Securities; nothing on it is Decentro.' },
+  host:        { t:'App home',                     g:'Entry',    tone:'',    c:'Card + Button',             purpose:'The partner app before the journey starts. Owned by the partner; nothing on it is Decentro.' },
   mobile:      { t:'1 \u00b7 Mobile number',      g:'Entry',    tone:'',    c:'Field + Checkbox + Button', purpose:'The mobile number and the consent every background pull is made under. Reused for DigiLocker later, so it is never typed twice.' },
   otp:         { t:'1 \u00b7 Mobile OTP',         g:'Entry',    tone:'',    c:'InputGroup (OTP) + Button', purpose:'Prove the customer holds the number.' },
   expired:     { t:'1 \u00b7 OTP expired',        g:'Errors',   tone:'wn',  c:'Empty + Button',            purpose:'The OTP window ran out. Resend issues a fresh reference ID.' },
@@ -1080,11 +1080,11 @@ const SCREENS = {
    STATE
    ============================================================ */
 const st = {
-  j:'hdfc', out:'clean', view:'both', today:12,
+  j:'lean', out:'clean', view:'both', today:12,
   cfg:{ threshold:85, ocr:true, prefillEditable:true, dlPin:false, otpWindow:60, docs:['AADHAAR','PAN'], esign:true },
-  th:{ preset:'hdfc', dark:false, primary:null, btnStyle:null, btnCase:null },
+  th:{ preset:'decentro', dark:false, primary:null, btnStyle:null, btnCase:null },
   os:'android', speed:1, run:0, logN:0, t0:Date.now(), mode:'demo',
-  urn:{ decentro:'DECENTROURN456', axis:'AXSEC_CONSUMER_01' }, env:'PRODUCTION',
+  urn:{ decentro:'DECENTROURN456', partner:'PARTNER_CONSUMER_01' }, env:'PRODUCTION',
   net:[], cbs:[], devMock:null, inspect:false, netOpen:null, hidePolls:false, tab:'log'
 };
 const cfg = st.cfg;
@@ -1214,14 +1214,14 @@ function buildCompare(){
   const J = JOURNEYS[st.j], mx = Math.max(st.today, J.steps);
   const row = (lb, n, col) => '<div class="cmpr"><span class="lb2">' + lb + '</span><span class="bar"><i style="width:' + Math.round(n/mx*100) + '%;background:' + col + '"></i></span><span class="n2">' + n + '</span></div>';
   $('#cmpc').innerHTML =
-    row('HDFC today', st.today, 'var(--fg-3)') +
+    row('Today', st.today, 'var(--fg-3)') +
     row('This journey', J.steps, 'var(--fg)') +
     '<div class="cmpr" style="grid-template-columns:auto minmax(0,1fr) auto"><span class="lb2">Baseline</span><span></span>' +
-      '<input id="todayIn" class="num" type="number" min="1" max="40" value="' + st.today + '" aria-label="Steps in HDFC Securities\u2019 current flow"></div>' +
-    '<p class="ft">' + (st.j === 'hdfc'
+      '<input id="todayIn" class="num" type="number" min="1" max="40" value="' + st.today + '" aria-label="Steps in the current flow"></div>' +
+    '<p class="ft">' + (st.j === 'lean'
       ? 'Mobile, email, DigiLocker, bank account, sign. PAN is pulled, validated and enriched in the background, so there is <b>nothing to reconfirm</b> and two fields to type. A KRA hit drops it to three.'
       : 'The same checks, but the customer is shown what was just fetched and asked to confirm it — <b>two extra screens</b> and three fields they can get wrong.') +
-    ' <span style="color:var(--warn)">The baseline is carried over from another account — set it to HDFC Securities’ real figure before you present.</span></p>';
+    ' <span style="color:var(--warn)">The baseline is illustrative — set it to the client’s real figure before you present.</span></p>';
 }
 function buildJourneys(){
   $('#jlist').innerHTML = Object.entries(JOURNEYS).map(([k,j]) =>
@@ -1289,7 +1289,7 @@ const pullReq   = () => ({ reference_id:ref('PULL'), ...consentBlock(), mobile:s
 const panValReq = n => ({ reference_id:ref('PANV', n), ...consentBlock(), pan:st.form.pan });
 const panDetReq = n => ({ reference_id:ref('PAND', n), ...consentBlock(), pan:st.form.pan, name:st.form.name, dob:st.form.dob });
 const kraReq    = () => ({ reference_id:ref('KRA'), ...consentBlock(), pan:st.form.pan, date_of_birth:st.form.dob });
-const dlInitReq = () => ({ reference_id:ref('DL'), ...consentBlock(), purpose:'ONBOARDING', mobile:st.form.mobile, documents:cfg.docs, redirect_url:'https://onboarding.hdfcsec.example/digilocker/callback' });
+const dlInitReq = () => ({ reference_id:ref('DL'), ...consentBlock(), purpose:'ONBOARDING', mobile:st.form.mobile, documents:cfg.docs, redirect_url:'https://onboarding.partner.example/digilocker/callback' });
 const ocrReq    = () => ({ reference_id:ref('OCR'), ...consentBlock(), document_type:'AADHAAR', source:'DIGILOCKER', extract:['name','date_of_birth'] });
 const openReq   = () => ({ reference_id:ref('ACC'), client_type:'INDIVIDUAL', pan:st.form.pan, name:(st.pan && st.pan.name) || st.form.name,
   dob:st.form.dob, mobile:st.form.mobile, email:st.form.email, kyc_mode:st.kra && st.kra.found ? 'KRA' : 'DIGILOCKER',
@@ -1775,7 +1775,7 @@ function render(){
   paintBars();
 }
 
-/* ---------- partner app (owned by HDFC Securities, no Decentro chrome) ---------- */
+/* ---------- partner app (owned by the partner, no Decentro chrome) ---------- */
 function renderHost(T){
   const h = T.pr.host;
   $('#host').innerHTML =
@@ -2301,7 +2301,7 @@ function renderBackstage(){
 
   const bgCalls = st.net.filter(e => e.bg).length;
   b.innerHTML =
-    '<p class="bs-sub">HDFC Securities calls these while the customer waits on one loader. Nothing here is put in front of them — if Data Pull and NSDL already agree, there is nothing to reconfirm.</p>' +
+    '<p class="bs-sub">Your backend calls these while the customer waits on one loader. Nothing here is put in front of them — if Data Pull and NSDL already agree, there is nothing to reconfirm.</p>' +
     list.map(row).join('') + dec +
     '<div class="bs-foot"><span>Background calls <b>' + bgCalls + '</b></span><span>Screens it saved <b>' + (st.decision === 'skip' ? 4 : 2) + '</b></span><span>Fields not asked for <b>' + (st.prefilled.pan ? 3 : 0) + '</b></span></div>';
 }
@@ -2336,7 +2336,7 @@ const CAPTION = {
   kraok:'KRA already holds the record, so document collection is skipped entirely. Three screens, start to signed.',
   dlintro:'The page the customer lands on straight after the email OTP — and they have confirmed nothing to get here.',
   dlauth:'DigiLocker\u2019s own screen, with the number already filled in. The customer taps Proceed \u2014 nothing is sent before they do.',
-  dlotp:'DigiLocker’s own screen, on the number from step 1. HDFC Securities never touches the credentials — the differentiator against running your own DigiLocker keys.',
+  dlotp:'DigiLocker’s own screen, on the number from step 1. the partner never touches the credentials — the differentiator against running your own DigiLocker keys.',
   dlpin:'The DigiLocker PIN step, on for accounts that have one set.',
   dlfetch:'Issued XML with UIDAI’s signature, not a photo of a card.',
   ocr:'Name match was below threshold, so OCR reads it off the issued Aadhaar — silently. The customer is never asked to retype a name.',
@@ -2557,7 +2557,7 @@ function renderCode(){
     '<div class="codehd"><b>Journey request</b><small>What your app hands the SDK</small></div>' +
     pre({ reference_id:P.base, consumer:{ urn:st.urn.decentro, environment:st.env },
       customer:{ mobile:st.form.mobile || P.mobile },
-      flow:{ data_pull:st.j === 'hdfc', show_confirmation_screen:st.j !== 'hdfc', pan_validation:true, detailed_pan:true, kra_check:true, digilocker:{ documents:cfg.docs, auth_mode:'MOBILE_OTP' }, ocr_fallback:cfg.ocr, esign:cfg.esign },
+      flow:{ data_pull:st.j === 'lean', show_confirmation_screen:st.j !== 'lean', pan_validation:true, detailed_pan:true, kra_check:true, digilocker:{ documents:cfg.docs, auth_mode:'MOBILE_OTP' }, ocr_fallback:cfg.ocr, esign:cfg.esign },
       policy:{ name_match_threshold:cfg.threshold, block_if_aadhaar_not_seeded:true },
       theme:{ primary:effTheme().pal.primary, button_corner_radius:effTheme().btnR, button_text_case:effTheme().bc } }) +
     '<div class="codehd"><b>cURL · Detailed PAN</b><small>The call behind step 3</small></div>' +
@@ -2622,10 +2622,10 @@ function renderSpec(){
 function handoff(){
   const used = st.net.map(e => ({ method:e.method, host:e.host, path:e.path, owner:OWN[e.own], step:e.step, illustrative:!!e.ill, http:e.http }));
   return {
-    product:'HDFC Securities · mobile demat onboarding',
+    product:'Digital onboarding + account verification · client-neutral',
     version:new Date().toISOString().slice(0,10),
     built_from:['Decentro-Demo.MD v1.1'],
-    source_docs:['[PLACEHOLDER] HDFC Securities onboarding requirement — attach the PRD or call notes before this ticket is picked up'],
+    source_docs:['[PLACEHOLDER] Attach the client’s onboarding requirement before this ticket is picked up'],
     journeys:Object.entries(JOURNEYS).map(([k,j]) => ({ id:k, name:j.name, steps:j.steps, steps_today:j.today })),
     policy:{ show_confirmation_screen:false, name_match_threshold:cfg.threshold, ocr_fallback:cfg.ocr, block_if_aadhaar_not_seeded:true,
       skip_documents_if_kra_registered:true, digilocker_pin_step:cfg.dlPin, otp_validity_seconds:cfg.otpWindow, documents:cfg.docs, esign:cfg.esign },
@@ -2646,10 +2646,10 @@ function handoff(){
       'Confirm /v3/kyc/pan returns aadhaar_seeding_status and name_match, and the exact key names.',
       'Confirm the DigiLocker endpoints: session create, OTP validate and document fetch paths and envelopes.',
       'Confirm whether OCR is a separate call or part of the DigiLocker document response.',
-      'HDFC Securities owns mobile OTP, email OTP and account creation in this build — confirm that split.',
-      '[PLACEHOLDER] Confirm HDFC Securities’ current step count for the comparison baseline — 12 is carried over from another account, not a measured figure.',
-      'Confirm the name-match algorithm and the threshold HDFC Securities wants in production (85% assumed).',
-      'Confirm which of VerifyPay, Reverse Penny Drop and manual validation HDFC Securities wants enabled, and whether that is per-merchant config or per-journey.',
+      'The partner owns mobile OTP, email OTP and account creation in this build — confirm that split per client.',
+      '[PLACEHOLDER] Set the comparison baseline to the client’s measured step count — 12 is illustrative.',
+      'Confirm the name-match algorithm and the threshold the client wants in production (85% assumed).',
+      'Confirm which of VerifyPay, Reverse Penny Drop and manual validation the client wants enabled, and whether that is per-merchant config or per-journey.',
       'Confirm the RPD hand-off: the demo skips the TPAP redirect, production opens the app and polls transaction status.',
       'Compliance: confirm that showing the fetched PAN only on the signing screen satisfies the account-opening record requirement, since the customer confirms nothing mid-journey.'
     ]
@@ -2658,7 +2658,7 @@ function handoff(){
 function handoffMd(){
   const h = handoff();
   const L = [];
-  L.push('# ' + h.product, '', 'Prototype: `decentro-axis-securities-onboarding.html` (attach the file to this ticket — it is the visual and behavioural spec).', '');
+  L.push('# ' + h.product, '', 'Prototype: `decentro-broker-onboarding-generic.html` (attach the file to this ticket — it is the visual and behavioural spec).', '');
   L.push('## Journeys'); h.journeys.forEach(j => L.push('- **' + j.name + '** — ' + j.steps + ' steps (against ' + j.steps_today + ' today)')); L.push('');
   L.push('## Policy'); Object.entries(h.policy).forEach(([k,v]) => L.push('- `' + k + '` = ' + JSON.stringify(v))); L.push('');
   L.push('## Endpoints'); L.push('| Method | Host | Path | Owner | Step | Confirmed |'); L.push('|---|---|---|---|---|---|');
@@ -2687,7 +2687,7 @@ function renderShare(){
   $('#dlJson').onclick = () => {
     const b = new Blob([JSON.stringify(handoff(), null, 2)], { type:'application/json' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
-    a.download = 'axis-securities-onboarding-handoff.json'; a.click(); URL.revokeObjectURL(a.href);
+    a.download = 'onboarding-handoff.json'; a.click(); URL.revokeObjectURL(a.href);
   };
   $('#cpMd').onclick = e => copyText(handoffMd(), e.currentTarget);
 }
@@ -2710,7 +2710,7 @@ function reqText(){
   return JSON.stringify({ reference_id:P.base,
     consumer:{ urn:st.urn.decentro, environment:st.env },
     customer:{ mobile:st.form.mobile || P.mobile },
-    flow:{ data_pull:st.j === 'hdfc', show_confirmation_screen:st.j !== 'hdfc', pan_validation:true, detailed_pan:true, kra_check:true, digilocker:{ documents:cfg.docs, auth_mode:'MOBILE_OTP', pin_step:cfg.dlPin }, ocr_fallback:cfg.ocr, esign:cfg.esign },
+    flow:{ data_pull:st.j === 'lean', show_confirmation_screen:st.j !== 'lean', pan_validation:true, detailed_pan:true, kra_check:true, digilocker:{ documents:cfg.docs, auth_mode:'MOBILE_OTP', pin_step:cfg.dlPin }, ocr_fallback:cfg.ocr, esign:cfg.esign },
     policy:{ name_match_threshold:cfg.threshold, block_if_aadhaar_not_seeded:true, otp_validity_seconds:cfg.otpWindow },
     theme:{ primary:effTheme().pal.primary, button_corner_radius:effTheme().btnR, button_text_case:effTheme().bc, font:effTheme().pr.fontRes }
   }, null, 2);
@@ -2784,7 +2784,7 @@ function renderDevLeft(){
     if (o.policy && o.policy.name_match_threshold) cfg.threshold = o.policy.name_match_threshold;
     if (o.flow){ cfg.ocr = !!o.flow.ocr_fallback; cfg.esign = !!o.flow.esign;
       if (o.flow.digilocker){ cfg.docs = o.flow.digilocker.documents; cfg.dlPin = !!o.flow.digilocker.pin_step; }
-      st.j = o.flow.show_confirmation_screen ? 'confirm' : 'hdfc'; }
+      st.j = o.flow.show_confirmation_screen ? 'confirm' : 'lean'; }
     buildCfg(); buildJourneys(); buildCompare();
     const m = st.form.mobile;
     restart(); st.form.mobile = m; st.consent = true;
